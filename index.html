@@ -14,22 +14,21 @@
         }
 
         :root {
-            /* Mild & Peaceful Color Palette */
-            --primary-gradient: linear-gradient(135deg, #a8c8ec 0%, #b8a9c9 50%, #d4c4d9 100%);
-            --secondary-gradient: linear-gradient(135deg, #c7d3cc 0%, #b8c5b8 100%);
-            --dark-gradient: linear-gradient(135deg, #f5f5f0 0%, #e8e6e1 50%, #d9d4ca 100%);
-            --glass-bg: rgba(255, 255, 255, 0.3);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --text-primary: #4a4a4a;
-            --text-secondary: #6b6b6b;
-            --accent-sage: #a8b5a0;
-            --accent-lavender: #b8a9c9;
-            --accent-rose: #d4c4d9;
-            --success-mint: #7fb069;
-            --warning-amber: #e6b89c;
-            --danger-coral: #e07a5f;
-            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
-            --shadow-gentle: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --secondary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 50%, #2d2d2d 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --accent-pink: #ec4899;
+            --success-green: #10b981;
+            --warning-orange: #f59e0b;
+            --danger-red: #ef4444;
+            --shadow-glow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            --shadow-elevated: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
         }
 
         body {
@@ -48,9 +47,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(ellipse at top left, rgba(168, 181, 160, 0.1) 0%, transparent 50%),
-                        radial-gradient(ellipse at bottom right, rgba(212, 196, 217, 0.1) 0%, transparent 50%),
-                        radial-gradient(ellipse at center, rgba(184, 169, 201, 0.05) 0%, transparent 50%);
+            background: radial-gradient(ellipse at top left, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                        radial-gradient(ellipse at bottom right, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+                        radial-gradient(ellipse at center, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
             pointer-events: none;
             z-index: -1;
         }
@@ -68,17 +67,17 @@
         .floating-circle {
             position: absolute;
             border-radius: 50%;
-            background: linear-gradient(45deg, rgba(168, 181, 160, 0.1), rgba(212, 196, 217, 0.1));
-            animation: float-gentle 8s ease-in-out infinite;
+            background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+            animation: float 6s ease-in-out infinite;
         }
 
-        .floating-circle:nth-child(1) { width: 60px; height: 60px; top: 15%; left: 15%; animation-delay: 0s; }
-        .floating-circle:nth-child(2) { width: 90px; height: 90px; top: 65%; right: 15%; animation-delay: 3s; }
-        .floating-circle:nth-child(3) { width: 45px; height: 45px; bottom: 25%; left: 25%; animation-delay: 6s; }
+        .floating-circle:nth-child(1) { width: 80px; height: 80px; top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-circle:nth-child(2) { width: 120px; height: 120px; top: 60%; right: 10%; animation-delay: 2s; }
+        .floating-circle:nth-child(3) { width: 60px; height: 60px; bottom: 20%; left: 20%; animation-delay: 4s; }
 
-        @keyframes float-gentle {
+        @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(180deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
         }
 
         .container {
@@ -97,7 +96,7 @@
             border: 1px solid var(--glass-border);
             padding: 40px;
             border-radius: 24px;
-            box-shadow: var(--shadow-soft);
+            box-shadow: var(--shadow-glow);
             position: relative;
             overflow: hidden;
         }
@@ -110,10 +109,10 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            animation: shimmer-gentle 4s infinite;
+            animation: shimmer 3s infinite;
         }
 
-        @keyframes shimmer-gentle {
+        @keyframes shimmer {
             0% { left: -100%; }
             100% { left: 100%; }
         }
@@ -127,28 +126,28 @@
         }
 
         .logo-icon {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             background: var(--primary-gradient);
-            border-radius: 12px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 24px;
-            font-weight: 700;
-            box-shadow: var(--shadow-gentle);
-            animation: pulse-gentle 3s ease-in-out infinite alternate;
+            font-size: 28px;
+            font-weight: 800;
+            box-shadow: var(--shadow-elevated);
+            animation: pulse-glow 2s ease-in-out infinite alternate;
         }
 
-        @keyframes pulse-gentle {
-            from { box-shadow: var(--shadow-gentle), 0 0 15px rgba(168, 181, 160, 0.3); }
-            to { box-shadow: var(--shadow-gentle), 0 0 25px rgba(212, 196, 217, 0.5); }
+        @keyframes pulse-glow {
+            from { box-shadow: var(--shadow-elevated), 0 0 20px rgba(102, 126, 234, 0.5); }
+            to { box-shadow: var(--shadow-elevated), 0 0 30px rgba(118, 75, 162, 0.8); }
         }
 
         .title {
-            font-size: 3rem;
-            font-weight: 700;
+            font-size: 3.5rem;
+            font-weight: 800;
             background: var(--primary-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -158,7 +157,7 @@
 
         .subtitle {
             color: var(--text-secondary);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-top: 8px;
             font-weight: 400;
         }
@@ -206,7 +205,7 @@
         .nav-item.active {
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(168, 181, 160, 0.3);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
 
         .main-layout {
@@ -228,7 +227,7 @@
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: var(--shadow-soft);
+            box-shadow: var(--shadow-glow);
             margin-bottom: 20px;
         }
 
@@ -274,8 +273,8 @@
 
         .prompt-input:focus {
             outline: none;
-            border-color: var(--accent-sage);
-            box-shadow: 0 0 0 4px rgba(168, 181, 160, 0.1);
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
             background: rgba(255, 255, 255, 0.08);
         }
 
@@ -292,8 +291,8 @@
 
         .suggestion-tag {
             padding: 4px 12px;
-            background: rgba(168, 181, 160, 0.2);
-            color: var(--accent-sage);
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--accent-purple);
             border-radius: 20px;
             font-size: 12px;
             cursor: pointer;
@@ -302,7 +301,7 @@
         }
 
         .suggestion-tag:hover {
-            background: var(--accent-sage);
+            background: var(--accent-purple);
             color: white;
             transform: translateY(-1px);
         }
@@ -329,7 +328,7 @@
         }
 
         .control-value {
-            background: var(--accent-sage);
+            background: var(--accent-purple);
             color: white;
             padding: 2px 10px;
             border-radius: 12px;
@@ -362,13 +361,13 @@
             border-radius: 50%;
             background: var(--primary-gradient);
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(168, 181, 160, 0.4);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
             transition: all 0.3s ease;
         }
 
         .slider::-webkit-slider-thumb:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(168, 181, 160, 0.6);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
         }
 
         .select, .seed-input {
@@ -385,8 +384,8 @@
 
         .select:focus, .seed-input:focus {
             outline: none;
-            border-color: var(--accent-sage);
-            box-shadow: 0 0 0 4px rgba(168, 181, 160, 0.1);
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
         }
 
         .style-presets {
@@ -433,7 +432,54 @@
         .style-btn.active {
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(168, 181, 160, 0.3);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .advanced-controls {
+            border-top: 1px solid var(--glass-border);
+            padding-top: 24px;
+            margin-top: 24px;
+        }
+
+        .toggle-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .toggle {
+            position: relative;
+            width: 56px;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle.active {
+            background: var(--accent-purple);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .toggle.active .toggle-slider {
+            transform: translateX(28px);
         }
 
         .generate-btn {
@@ -451,12 +497,12 @@
             overflow: hidden;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: var(--shadow-gentle);
+            box-shadow: var(--shadow-elevated);
         }
 
         .generate-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 28px rgba(168, 181, 160, 0.4);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
         }
 
         .generate-btn:active {
@@ -469,36 +515,22 @@
             transform: none;
         }
 
-        .credits-display {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px;
-            background: rgba(168, 181, 160, 0.1);
-            border: 1px solid rgba(168, 181, 160, 0.3);
-            border-radius: 12px;
-            margin-bottom: 20px;
+        .generate-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
         }
 
-        .credits-icon {
-            font-size: 20px;
-            color: var(--success-mint);
-        }
-
-        .credits-info {
-            flex: 1;
-        }
-
-        .credits-count {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--success-mint);
-        }
-
-        .credits-label {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-top: 2px;
+        .generate-btn:active::after {
+            width: 300px;
+            height: 300px;
         }
 
         .main-content {
@@ -513,13 +545,39 @@
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: var(--shadow-soft);
+            box-shadow: var(--shadow-glow);
             min-height: 500px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             position: relative;
+        }
+
+        .preview-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .preview-tab {
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .preview-tab.active {
+            background: var(--accent-purple);
+            color: white;
         }
 
         .preview-area {
@@ -540,8 +598,8 @@
         }
 
         .preview-area:hover {
-            border-color: var(--accent-sage);
-            background: rgba(168, 181, 160, 0.05);
+            border-color: var(--accent-purple);
+            background: rgba(139, 92, 246, 0.05);
         }
 
         .preview-placeholder {
@@ -557,6 +615,11 @@
             animation: float-gentle 3s ease-in-out infinite;
         }
 
+        @keyframes float-gentle {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
         .preview-text {
             font-size: 18px;
             font-weight: 500;
@@ -566,6 +629,224 @@
         .preview-subtext {
             font-size: 14px;
             opacity: 0.7;
+        }
+
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border-radius: 16px;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid var(--accent-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: white;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .loading-progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 16px;
+            overflow: hidden;
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: var(--primary-gradient);
+            width: 0%;
+            animation: progress 3s ease-in-out;
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .gallery-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .gallery-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gallery-filters {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            padding: 6px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent-purple);
+            color: white;
+            border-color: var(--accent-purple);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(139, 92, 246, 0.2);
+            border-color: var(--accent-purple);
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 0.1;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .action-btn:hover {
+            background: var(--accent-purple);
+            border-color: var(--accent-purple);
+            transform: translateY(-1px);
+        }
+
+        .action-btn.primary {
+            background: var(--primary-gradient);
+            border: none;
+        }
+
+        .credits-display {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .credits-icon {
+            font-size: 20px;
+            color: var(--success-green);
+        }
+
+        .credits-info {
+            flex: 1;
+        }
+
+        .credits-count {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--success-green);
+        }
+
+        .credits-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
         }
 
         @media (max-width: 1024px) {
@@ -608,6 +889,64 @@
             .panel {
                 padding: 20px;
             }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            font-size: 12px;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            margin-bottom: 5px;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            background: var(--success-green);
+            color: white;
+            border-radius: 12px;
+            font-weight: 500;
+            transform: translateX(400px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            box-shadow: var(--shadow-elevated);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background: var(--danger-red);
+        }
+
+        .notification.warning {
+            background: var(--warning-orange);
         }
     </style>
 </head>
@@ -659,14 +998,15 @@
                         <label class="form-label">Describe your image in detail</label>
                         <textarea 
                             class="prompt-input" 
-                            placeholder="A peaceful landscape with soft morning light filtering through gentle mist..."
+                            placeholder="A majestic dragon soaring through a cyberpunk cityscape at sunset, neon lights reflecting off its metallic scales, photorealistic, 8K resolution, cinematic lighting..."
                             id="promptInput"
                         ></textarea>
                         <div class="prompt-suggestions">
-                            <span class="suggestion-tag" onclick="addToPrompt('soft lighting')">soft lighting</span>
-                            <span class="suggestion-tag" onclick="addToPrompt('peaceful')">peaceful</span>
-                            <span class="suggestion-tag" onclick="addToPrompt('gentle colors')">gentle colors</span>
-                            <span class="suggestion-tag" onclick="addToPrompt('serene')">serene</span>
+                            <span class="suggestion-tag" onclick="addToPrompt('photorealistic')">photorealistic</span>
+                            <span class="suggestion-tag" onclick="addToPrompt('cinematic lighting')">cinematic</span>
+                            <span class="suggestion-tag" onclick="addToPrompt('8K resolution')">8K</span>
+                            <span class="suggestion-tag" onclick="addToPrompt('highly detailed')">detailed</span>
+                            <span class="suggestion-tag" onclick="addToPrompt('trending on artstation')">trending</span>
                         </div>
                     </div>
 
@@ -675,7 +1015,7 @@
                         <textarea 
                             class="prompt-input" 
                             style="min-height: 80px;"
-                            placeholder="harsh lighting, vibrant colors, chaotic..."
+                            placeholder="blurry, low quality, distorted, watermark, text, signature, cropped..."
                             id="negativeInput"
                         ></textarea>
                     </div>
@@ -683,21 +1023,21 @@
                     <div class="controls-grid">
                         <div class="control-group">
                             <div class="control-label">
-                                <span>Steps</span>
-                                <span class="control-value" id="stepsValue">25</span>
+                                <span class="tooltip" data-tooltip="Number of denoising steps">Steps</span>
+                                <span class="control-value" id="stepsValue">30</span>
                             </div>
                             <div class="slider-container">
-                                <input type="range" class="slider" min="10" max="50" value="25" id="stepsSlider">
+                                <input type="range" class="slider" min="10" max="150" value="30" id="stepsSlider">
                             </div>
                         </div>
 
                         <div class="control-group">
                             <div class="control-label">
-                                <span>CFG Scale</span>
-                                <span class="control-value" id="guidanceValue">7.0</span>
+                                <span class="tooltip" data-tooltip="How closely to follow the prompt">CFG Scale</span>
+                                <span class="control-value" id="guidanceValue">7.5</span>
                             </div>
                             <div class="slider-container">
-                                <input type="range" class="slider" min="1" max="15" value="7.0" step="0.5" id="guidanceSlider">
+                                <input type="range" class="slider" min="1" max="30" value="7.5" step="0.5" id="guidanceSlider">
                             </div>
                         </div>
 
@@ -707,39 +1047,162 @@
                                 <option value="512x512">512×512 (Square)</option>
                                 <option value="768x768" selected>768×768 (Square)</option>
                                 <option value="1024x1024">1024×1024 (Square)</option>
+                                <option value="512x768">512×768 (Portrait)</option>
+                                <option value="768x512">768×512 (Landscape)</option>
+                                <option value="1024x1792">1024×1792 (Tall)</option>
+                                <option value="1792x1024">1792×1024 (Wide)</option>
                             </select>
                         </div>
 
                         <div class="control-group">
-                            <label class="control-label">Seed</label>
-                            <input type="text" class="seed-input" placeholder="Random" id="seedInput">
+                            <label class="control-label">
+                                <span class="tooltip" data-tooltip="Seed for reproducible results">Seed</span>
+                            </label>
+                            <input type="text" class="seed-input" placeholder="Random (or enter number)" id="seedInput">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">🎨 Style Presets</label>
                         <div class="style-presets">
-                            <button class="style-btn active" data-style="soft-pastel">🌸 Soft Pastel</button>
-                            <button class="style-btn" data-style="warm-minimal">🌅 Warm Minimal</button>
-                            <button class="style-btn" data-style="earthy-tones">🍃 Earthy Tones</button>
-                            <button class="style-btn" data-style="calm-watercolor">💧 Calm Watercolor</button>
+                            <button class="style-btn active" data-style="photorealistic">📸 Photorealistic</button>
+                            <button class="style-btn" data-style="anime">🌸 Anime</button>
+                            <button class="style-btn" data-style="cinematic">🎬 Cinematic</button>
+                            <button class="style-btn" data-style="digital-art">🎨 Digital Art</button>
+                            <button class="style-btn" data-style="oil-painting">🖼️ Oil Painting</button>
+                            <button class="style-btn" data-style="watercolor">🌊 Watercolor</button>
+                            <button class="style-btn" data-style="3d-render">💎 3D Render</button>
+                            <button class="style-btn" data-style="pixel-art">🕹️ Pixel Art</button>
                         </div>
                     </div>
 
+                    <div class="advanced-controls">
+                        <div class="form-label">⚙️ Advanced Options</div>
+                        
+                        <div class="toggle-section">
+                            <div>
+                                <div style="font-weight: 500;">Safety Filter</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);">Block inappropriate content</div>
+                            </div>
+                            <div class="toggle active" id="safetyToggle">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+
+                        <div class="toggle-section">
+                            <div>
+                                <div style="font-weight: 500;">HD Upscale</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);">Enhance resolution (costs 2x credits)</div>
+                            </div>
+                            <div class="toggle" id="upscaleToggle">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+
+                        <div class="toggle-section">
+                            <div>
+                                <div style="font-weight: 500;">Face Enhancement</div>
+                                <div style="font-size: 12px; color: var(--text-secondary);">Improve facial features</div>
+                            </div>
+                            <div class="toggle" id="faceToggle">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <button class="generate-btn" id="generateBtn">
                         <span id="generateText">🚀 Generate Image</span>
                     </button>
+                </div>
+
+                <!-- Model Selection Panel -->
+                <div class="panel">
+                    <div class="panel-title">
+                        <span class="panel-icon">🧠</span>
+                        AI Model
+                    </div>
+                    <select class="select" id="modelSelect">
+                        <option value="dalle3">DALL-E 3 (Best Quality)</option>
+                        <option value="midjourney" selected>Midjourney v6 (Artistic)</option>
+                        <option value="stable-diffusion">Stable Diffusion XL (Fast)</option>
+                        <option value="leonardo">Leonardo AI (Versatile)</option>
+                    </select>
                 </div>
             </div>
 
             <div class="main-content">
                 <!-- Preview Panel -->
                 <div class="preview-panel">
+                    <div class="preview-tabs">
+                        <button class="preview-tab active" data-tab="generate">🎨 Generate</button>
+                        <button class="preview-tab" data-tab="variations">🔄 Variations</button>
+                        <button class="preview-tab" data-tab="upscale">📈 Upscale</button>
+                        <button class="preview-tab" data-tab="edit">✏️ Edit</button>
+                    </div>
+
                     <div class="preview-area" id="previewArea">
                         <div class="preview-placeholder">
                             <div class="preview-icon">🎨</div>
-                            <div class="preview-text">Ready to create peaceful art?</div>
-                            <div class="preview-subtext">Your gentle AI-generated masterpiece will appear here</div>
+                            <div class="preview-text">Ready to create magic?</div>
+                            <div class="preview-subtext">Your AI-generated masterpiece will appear here</div>
+                        </div>
+                        
+                        <div class="loading-overlay" id="loadingOverlay">
+                            <div class="spinner"></div>
+                            <div class="loading-text">
+                                <div>Creating your masterpiece...</div>
+                                <div style="font-size: 14px; margin-top: 8px; opacity: 0.8;" id="loadingSubtext">Initializing AI model</div>
+                            </div>
+                            <div class="loading-progress">
+                                <div class="loading-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons" id="actionButtons" style="display: none;">
+                        <button class="action-btn">💾 Download</button>
+                        <button class="action-btn">🔄 Create Variations</button>
+                        <button class="action-btn">📈 Upscale</button>
+                        <button class="action-btn">❤️ Favorite</button>
+                        <button class="action-btn primary">🚀 Generate Another</button>
+                    </div>
+                </div>
+
+                <!-- Gallery Section -->
+                <div class="gallery-section">
+                    <div class="gallery-header">
+                        <h2 class="gallery-title">🖼️ Your Creations</h2>
+                        <div class="gallery-filters">
+                            <button class="filter-btn active">All</button>
+                            <button class="filter-btn">Recent</button>
+                            <button class="filter-btn">Favorites</button>
+                            <button class="filter-btn">Public</button>
+                        </div>
+                    </div>
+                    <div class="gallery-grid" id="galleryGrid">
+                        <div class="gallery-item">
+                            <div style="text-align: center;">
+                                <div style="font-size: 32px; margin-bottom: 8px;">🎨</div>
+                                <div>Your first creation will appear here</div>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                            <div style="text-align: center;">
+                                <div style="font-size: 32px; margin-bottom: 8px;">✨</div>
+                                <div>Try different styles and prompts</div>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                            <div style="text-align: center;">
+                                <div style="font-size: 32px; margin-bottom: 8px;">🚀</div>
+                                <div>Create unlimited possibilities</div>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                            <div style="text-align: center;">
+                                <div style="font-size: 32px; margin-bottom: 8px;">💎</div>
+                                <div>Share with the community</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -747,14 +1210,27 @@
         </div>
     </div>
 
+    <!-- Notification System -->
+    <div class="notification" id="notification"></div>
+
     <script>
-        // Enhanced Interactive Features with Mild Colors
+        // Enhanced Interactive Features
         document.addEventListener('DOMContentLoaded', function() {
-            setupSliders();
-            setupStylePresets();
-            setupGeneration();
+            initializeApp();
         });
 
+        function initializeApp() {
+            setupSliders();
+            setupStylePresets();
+            setupToggles();
+            setupTabs();
+            setupGeneration();
+            setupNavigation();
+            setupGalleryFilters();
+            addKeyboardShortcuts();
+        }
+
+        // Slider Controls with Real-time Updates
         function setupSliders() {
             const stepsSlider = document.getElementById('stepsSlider');
             const stepsValue = document.getElementById('stepsValue');
@@ -763,6 +1239,7 @@
 
             stepsSlider.addEventListener('input', function() {
                 stepsValue.textContent = this.value;
+                updateEstimatedTime();
             });
 
             guidanceSlider.addEventListener('input', function() {
@@ -770,6 +1247,7 @@
             });
         }
 
+        // Style Preset System
         function setupStylePresets() {
             const styleButtons = document.querySelectorAll('.style-btn');
             
@@ -777,25 +1255,181 @@
                 btn.addEventListener('click', function() {
                     styleButtons.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
+                    
+                    const style = this.dataset.style;
+                    applyStylePreset(style);
+                    showNotification(`Applied ${style} style preset`, 'success');
                 });
             });
         }
 
+        function applyStylePreset(style) {
+            const promptInput = document.getElementById('promptInput');
+            const currentPrompt = promptInput.value;
+            
+            const stylePrompts = {
+                'photorealistic': ', photorealistic, highly detailed, 8K resolution, professional photography',
+                'anime': ', anime style, manga art, vibrant colors, detailed character design',
+                'cinematic': ', cinematic lighting, dramatic composition, film grain, movie poster style',
+                'digital-art': ', digital art, concept art, trending on artstation, detailed painting',
+                'oil-painting': ', oil painting, classical art style, brush strokes, renaissance style',
+                'watercolor': ', watercolor painting, soft brushstrokes, flowing colors, artistic',
+                '3d-render': ', 3D render, octane render, unreal engine, volumetric lighting',
+                'pixel-art': ', pixel art, 8-bit style, retro gaming, pixelated, digital sprite'
+            };
+
+            if (stylePrompts[style] && !currentPrompt.includes(stylePrompts[style])) {
+                promptInput.value = currentPrompt + stylePrompts[style];
+            }
+        }
+
+        // Toggle Controls
+        function setupToggles() {
+            const toggles = document.querySelectorAll('.toggle');
+            
+            toggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    
+                    if (this.id === 'upscaleToggle' && this.classList.contains('active')) {
+                        showNotification('HD Upscale enabled (2x credit cost)', 'warning');
+                    }
+                });
+            });
+        }
+
+        // Preview Tabs
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.preview-tab');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const tabType = this.dataset.tab;
+                    switchPreviewMode(tabType);
+                });
+            });
+        }
+
+        function switchPreviewMode(mode) {
+            const previewArea = document.getElementById('previewArea');
+            // This would switch between different preview modes
+            // Implementation depends on your specific needs
+        }
+
+        // Advanced Generation System
         function setupGeneration() {
             const generateBtn = document.getElementById('generateBtn');
-            
+            const generateText = document.getElementById('generateText');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const loadingSubtext = document.getElementById('loadingSubtext');
+            const actionButtons = document.getElementById('actionButtons');
+
             generateBtn.addEventListener('click', function() {
                 const prompt = document.getElementById('promptInput').value.trim();
                 
                 if (!prompt) {
-                    alert('Please enter a prompt');
+                    showNotification('Please enter a prompt to generate an image', 'error');
                     return;
                 }
-                
-                alert('Generation started with peaceful palette! (Connect your API for actual generation)');
+
+                startGeneration();
+            });
+
+            function startGeneration() {
+                // Update UI for generation state
+                generateBtn.classList.add('generating');
+                generateText.textContent = '⚡ Generating...';
+                loadingOverlay.classList.add('active');
+                actionButtons.style.display = 'none';
+
+                // Simulate advanced generation process
+                const steps = [
+                    'Initializing AI model...',
+                    'Processing your prompt...',
+                    'Generating base image...',
+                    'Applying style enhancements...',
+                    'Adding fine details...',
+                    'Finalizing your masterpiece...'
+                ];
+
+                let currentStep = 0;
+                const interval = setInterval(() => {
+                    if (currentStep < steps.length) {
+                        loadingSubtext.textContent = steps[currentStep];
+                        currentStep++;
+                    } else {
+                        clearInterval(interval);
+                        completeGeneration();
+                    }
+                }, 500);
+            }
+
+            function completeGeneration() {
+                // Reset UI
+                generateBtn.classList.remove('generating');
+                generateText.textContent = '🚀 Generate Image';
+                loadingOverlay.classList.remove('active');
+
+                // Show generated result
+                const previewArea = document.getElementById('previewArea');
+                previewArea.innerHTML = `
+                    <div style="width: 100%; max-width: 500px; aspect-ratio: 1; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-direction: column; color: white; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🎨</text></svg>') center/60% no-repeat; opacity: 0.3;"></div>
+                        <div style="text-align: center; z-index: 2;">
+                            <div style="font-size: 24px; font-weight: bold; margin-bottom: 8px;">✨ Generated Successfully!</div>
+                            <div style="font-size: 14px; opacity: 0.8;">Connect your API to see actual results</div>
+                        </div>
+                        <div style="position: absolute; bottom: 16px; left: 16px; right: 16px; display: flex; gap: 8px;">
+                            <div style="flex: 1; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px;"></div>
+                            <div style="flex: 1; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px;"></div>
+                            <div style="flex: 1; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px;"></div>
+                        </div>
+                    </div>
+                `;
+
+                actionButtons.style.display = 'flex';
+                showNotification('Image generated successfully! 🎉', 'success');
+                updateCredits(-1);
+            }
+        }
+
+        // Navigation System
+        function setupNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                });
             });
         }
 
+        // Gallery Filters
+        function setupGalleryFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.textContent.toLowerCase();
+                    filterGallery(filter);
+                });
+            });
+        }
+
+        function filterGallery(filter) {
+            // Implementation for filtering gallery items
+            showNotification(`Showing ${filter} images`, 'success');
+        }
+
+        // Utility Functions
         function addToPrompt(text) {
             const promptInput = document.getElementById('promptInput');
             const currentValue = promptInput.value;
@@ -806,4 +1440,76 @@
             
             promptInput.focus();
         }
+
+        function updateEstimatedTime() {
+            const steps = document.getElementById('stepsSlider').value;
+            const estimatedTime = Math.ceil(steps / 5);
+            // Could show estimated time somewhere in UI
+        }
+
+        function updateCredits(change) {
+            const creditsCount = document.querySelector('.credits-count');
+            const currentCredits = parseInt(creditsCount.textContent);
+            const newCredits = Math.max(0, currentCredits + change);
+            creditsCount.textContent = `${newCredits} Credits`;
+            
+            if (newCredits < 10) {
+                creditsCount.style.color = 'var(--danger-red)';
+                showNotification('Running low on credits!', 'warning');
+            }
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification show ${type}`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function addKeyboardShortcuts() {
+            document.addEventListener('keydown', function(e) {
+                // Ctrl/Cmd + Enter to generate
+                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                    e.preventDefault();
+                    document.getElementById('generateBtn').click();
+                }
+                
+                // Escape to cancel generation
+                if (e.key === 'Escape') {
+                    const loadingOverlay = document.getElementById('loadingOverlay');
+                    if (loadingOverlay.classList.contains('active')) {
+                        // Cancel generation logic here
+                    }
+                }
+            });
+        }
+
+        // Auto-save functionality
+        setInterval(() => {
+            const prompt = document.getElementById('promptInput').value;
+            const negativePrompt = document.getElementById('negativeInput').value;
+            
+            if (prompt || negativePrompt) {
+                localStorage.setItem('astraforge_prompt', prompt);
+                localStorage.setItem('astraforge_negative', negativePrompt);
+            }
+        }, 10000);
+
+        // Load saved prompts on page load
+        window.addEventListener('load', () => {
+            const savedPrompt = localStorage.getItem('astraforge_prompt');
+            const savedNegative = localStorage.getItem('astraforge_negative');
+            
+            if (savedPrompt) {
+                document.getElementById('promptInput').value = savedPrompt;
+            }
+            if (savedNegative) {
+                document.getElementById('negativeInput').value = savedNegative;
+            }
+        });
     </script>
+</body>
+</html>
