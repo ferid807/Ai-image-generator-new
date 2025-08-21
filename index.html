@@ -182,6 +182,7 @@
             backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .nav-item::before {
@@ -380,6 +381,12 @@
             color: var(--text-primary);
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+        }
+
+        .select option {
+            background: #1a1a1a;
+            color: var(--text-primary);
+            padding: 8px;
         }
 
         .select:focus, .seed-input:focus {
@@ -762,6 +769,8 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            background-size: cover;
+            background-position: center;
         }
 
         .gallery-item:hover {
@@ -847,6 +856,101 @@
             font-size: 12px;
             color: var(--text-secondary);
             margin-top: 2px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            color: var(--text-primary);
+            position: relative;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.2);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--accent-purple);
+            position: relative;
+        }
+
+        .pricing-card.featured::before {
+            content: 'POPULAR';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-purple);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         @media (max-width: 1024px) {
@@ -968,242 +1072,427 @@
             </div>
             <p class="subtitle">Create stunning visuals with cutting-edge AI technology</p>
             <nav class="nav">
-                <a href="#" class="nav-item active">🎨 Generate</a>
-                <a href="#" class="nav-item">💎 Pricing</a>
-                <a href="#" class="nav-item">🌟 Explore</a>
-                <a href="#" class="nav-item">📚 Templates</a>
-                <a href="#" class="nav-item">👤 Sign In</a>
+                <button class="nav-item active" data-page="generate">🎨 Generate</button>
+                <button class="nav-item" data-page="pricing">💎 Pricing</button>
+                <button class="nav-item" data-page="explore">🌟 Explore</button>
+                <button class="nav-item" data-page="templates">📚 Templates</button>
+                <button class="nav-item" data-page="signin">👤 Sign In</button>
             </nav>
         </header>
 
-        <div class="main-layout">
-            <div class="sidebar">
-                <!-- Credits Display -->
-                <div class="credits-display">
-                    <div class="credits-icon">⚡</div>
-                    <div class="credits-info">
-                        <div class="credits-count">150 Credits</div>
-                        <div class="credits-label">Available this month</div>
-                    </div>
-                </div>
-
-                <!-- Main Controls Panel -->
-                <div class="panel">
-                    <div class="panel-title">
-                        <span class="panel-icon">✨</span>
-                        Create Your Vision
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Describe your image in detail</label>
-                        <textarea 
-                            class="prompt-input" 
-                            placeholder="A majestic dragon soaring through a cyberpunk cityscape at sunset, neon lights reflecting off its metallic scales, photorealistic, 8K resolution, cinematic lighting..."
-                            id="promptInput"
-                        ></textarea>
-                        <div class="prompt-suggestions">
-                            <span class="suggestion-tag" onclick="addToPrompt('photorealistic')">photorealistic</span>
-                            <span class="suggestion-tag" onclick="addToPrompt('cinematic lighting')">cinematic</span>
-                            <span class="suggestion-tag" onclick="addToPrompt('8K resolution')">8K</span>
-                            <span class="suggestion-tag" onclick="addToPrompt('highly detailed')">detailed</span>
-                            <span class="suggestion-tag" onclick="addToPrompt('trending on artstation')">trending</span>
+        <!-- Main Generate Page -->
+        <div id="generate-page" class="page-content">
+            <div class="main-layout">
+                <div class="sidebar">
+                    <!-- Credits Display -->
+                    <div class="credits-display">
+                        <div class="credits-icon">⚡</div>
+                        <div class="credits-info">
+                            <div class="credits-count">150 Credits</div>
+                            <div class="credits-label">Available this month</div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Negative prompt (what to avoid)</label>
-                        <textarea 
-                            class="prompt-input" 
-                            style="min-height: 80px;"
-                            placeholder="blurry, low quality, distorted, watermark, text, signature, cropped..."
-                            id="negativeInput"
-                        ></textarea>
-                    </div>
-
-                    <div class="controls-grid">
-                        <div class="control-group">
-                            <div class="control-label">
-                                <span class="tooltip" data-tooltip="Number of denoising steps">Steps</span>
-                                <span class="control-value" id="stepsValue">30</span>
-                            </div>
-                            <div class="slider-container">
-                                <input type="range" class="slider" min="10" max="150" value="30" id="stepsSlider">
-                            </div>
+                    <!-- Main Controls Panel -->
+                    <div class="panel">
+                        <div class="panel-title">
+                            <span class="panel-icon">✨</span>
+                            Create Your Vision
                         </div>
-
-                        <div class="control-group">
-                            <div class="control-label">
-                                <span class="tooltip" data-tooltip="How closely to follow the prompt">CFG Scale</span>
-                                <span class="control-value" id="guidanceValue">7.5</span>
-                            </div>
-                            <div class="slider-container">
-                                <input type="range" class="slider" min="1" max="30" value="7.5" step="0.5" id="guidanceSlider">
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label">Resolution</label>
-                            <select class="select" id="sizeSelect">
-                                <option value="512x512">512×512 (Square)</option>
-                                <option value="768x768" selected>768×768 (Square)</option>
-                                <option value="1024x1024">1024×1024 (Square)</option>
-                                <option value="512x768">512×768 (Portrait)</option>
-                                <option value="768x512">768×512 (Landscape)</option>
-                                <option value="1024x1792">1024×1792 (Tall)</option>
-                                <option value="1792x1024">1792×1024 (Wide)</option>
-                            </select>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label">
-                                <span class="tooltip" data-tooltip="Seed for reproducible results">Seed</span>
-                            </label>
-                            <input type="text" class="seed-input" placeholder="Random (or enter number)" id="seedInput">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">🎨 Style Presets</label>
-                        <div class="style-presets">
-                            <button class="style-btn active" data-style="photorealistic">📸 Photorealistic</button>
-                            <button class="style-btn" data-style="anime">🌸 Anime</button>
-                            <button class="style-btn" data-style="cinematic">🎬 Cinematic</button>
-                            <button class="style-btn" data-style="digital-art">🎨 Digital Art</button>
-                            <button class="style-btn" data-style="oil-painting">🖼️ Oil Painting</button>
-                            <button class="style-btn" data-style="watercolor">🌊 Watercolor</button>
-                            <button class="style-btn" data-style="3d-render">💎 3D Render</button>
-                            <button class="style-btn" data-style="pixel-art">🕹️ Pixel Art</button>
-                        </div>
-                    </div>
-
-                    <div class="advanced-controls">
-                        <div class="form-label">⚙️ Advanced Options</div>
                         
-                        <div class="toggle-section">
-                            <div>
-                                <div style="font-weight: 500;">Safety Filter</div>
-                                <div style="font-size: 12px; color: var(--text-secondary);">Block inappropriate content</div>
-                            </div>
-                            <div class="toggle active" id="safetyToggle">
-                                <div class="toggle-slider"></div>
-                            </div>
-                        </div>
-
-                        <div class="toggle-section">
-                            <div>
-                                <div style="font-weight: 500;">HD Upscale</div>
-                                <div style="font-size: 12px; color: var(--text-secondary);">Enhance resolution (costs 2x credits)</div>
-                            </div>
-                            <div class="toggle" id="upscaleToggle">
-                                <div class="toggle-slider"></div>
+                        <div class="form-group">
+                            <label class="form-label">Describe your image in detail</label>
+                            <textarea 
+                                class="prompt-input" 
+                                placeholder="A majestic dragon soaring through a cyberpunk cityscape at sunset, neon lights reflecting off its metallic scales, photorealistic, 8K resolution, cinematic lighting..."
+                                id="promptInput"
+                            ></textarea>
+                            <div class="prompt-suggestions">
+                                <span class="suggestion-tag" onclick="addToPrompt('photorealistic')">photorealistic</span>
+                                <span class="suggestion-tag" onclick="addToPrompt('cinematic lighting')">cinematic</span>
+                                <span class="suggestion-tag" onclick="addToPrompt('8K resolution')">8K</span>
+                                <span class="suggestion-tag" onclick="addToPrompt('highly detailed')">detailed</span>
+                                <span class="suggestion-tag" onclick="addToPrompt('trending on artstation')">trending</span>
                             </div>
                         </div>
 
-                        <div class="toggle-section">
-                            <div>
-                                <div style="font-weight: 500;">Face Enhancement</div>
-                                <div style="font-size: 12px; color: var(--text-secondary);">Improve facial features</div>
+                        <div class="form-group">
+                            <label class="form-label">Negative prompt (what to avoid)</label>
+                            <textarea 
+                                class="prompt-input" 
+                                style="min-height: 80px;"
+                                placeholder="blurry, low quality, distorted, watermark, text, signature, cropped..."
+                                id="negativeInput"
+                            ></textarea>
+                        </div>
+
+                        <div class="controls-grid">
+                            <div class="control-group">
+                                <div class="control-label">
+                                    <span class="tooltip" data-tooltip="Number of denoising steps">Steps</span>
+                                    <span class="control-value" id="stepsValue">30</span>
+                                </div>
+                                <div class="slider-container">
+                                    <input type="range" class="slider" min="10" max="150" value="30" id="stepsSlider">
+                                </div>
                             </div>
-                            <div class="toggle" id="faceToggle">
-                                <div class="toggle-slider"></div>
+
+                            <div class="control-group">
+                                <div class="control-label">
+                                    <span class="tooltip" data-tooltip="How closely to follow the prompt">CFG Scale</span>
+                                    <span class="control-value" id="guidanceValue">7.5</span>
+                                </div>
+                                <div class="slider-container">
+                                    <input type="range" class="slider" min="1" max="30" value="7.5" step="0.5" id="guidanceSlider">
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Resolution</label>
+                                <select class="select" id="sizeSelect">
+                                    <option value="512x512">512×512 (Square)</option>
+                                    <option value="768x768" selected>768×768 (Square)</option>
+                                    <option value="1024x1024">1024×1024 (Square)</option>
+                                    <option value="512x768">512×768 (Portrait)</option>
+                                    <option value="768x512">768×512 (Landscape)</option>
+                                    <option value="1024x1792">1024×1792 (Tall)</option>
+                                    <option value="1792x1024">1792×1024 (Wide)</option>
+                                </select>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <span class="tooltip" data-tooltip="Seed for reproducible results">Seed</span>
+                                </label>
+                                <input type="text" class="seed-input" placeholder="Random (or enter number)" id="seedInput">
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="form-label">🎨 Style Presets</label>
+                            <div class="style-presets">
+                                <button class="style-btn active" data-style="photorealistic">📸 Photorealistic</button>
+                                <button class="style-btn" data-style="anime">🌸 Anime</button>
+                                <button class="style-btn" data-style="cinematic">🎬 Cinematic</button>
+                                <button class="style-btn" data-style="digital-art">🎨 Digital Art</button>
+                                <button class="style-btn" data-style="oil-painting">🖼️ Oil Painting</button>
+                                <button class="style-btn" data-style="watercolor">🌊 Watercolor</button>
+                                <button class="style-btn" data-style="3d-render">💎 3D Render</button>
+                                <button class="style-btn" data-style="pixel-art">🕹️ Pixel Art</button>
+                            </div>
+                        </div>
+
+                        <div class="advanced-controls">
+                            <div class="form-label">⚙️ Advanced Options</div>
+                            
+                            <div class="toggle-section">
+                                <div>
+                                    <div style="font-weight: 500;">Safety Filter</div>
+                                    <div style="font-size: 12px; color: var(--text-secondary);">Block inappropriate content</div>
+                                </div>
+                                <div class="toggle active" id="safetyToggle">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+
+                            <div class="toggle-section">
+                                <div>
+                                    <div style="font-weight: 500;">HD Upscale</div>
+                                    <div style="font-size: 12px; color: var(--text-secondary);">Enhance resolution (costs 2x credits)</div>
+                                </div>
+                                <div class="toggle" id="upscaleToggle">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+
+                            <div class="toggle-section">
+                                <div>
+                                    <div style="font-weight: 500;">Face Enhancement</div>
+                                    <div style="font-size: 12px; color: var(--text-secondary);">Improve facial features</div>
+                                </div>
+                                <div class="toggle" id="faceToggle">
+                                    <div class="toggle-slider"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="generate-btn" id="generateBtn">
+                            <span id="generateText">🚀 Generate Image</span>
+                        </button>
                     </div>
-                    
-                    <button class="generate-btn" id="generateBtn">
-                        <span id="generateText">🚀 Generate Image</span>
-                    </button>
+
+                    <!-- Model Selection Panel -->
+                    <div class="panel">
+                        <div class="panel-title">
+                            <span class="panel-icon">🧠</span>
+                            AI Model
+                        </div>
+                        <select class="select" id="modelSelect">
+                            <option value="dalle3">DALL-E 3 (Best Quality)</option>
+                            <option value="midjourney" selected>Midjourney v6 (Artistic)</option>
+                            <option value="stable-diffusion">Stable Diffusion XL (Fast)</option>
+                            <option value="leonardo">Leonardo AI (Versatile)</option>
+                        </select>
+                    </div>
                 </div>
 
-                <!-- Model Selection Panel -->
-                <div class="panel">
-                    <div class="panel-title">
-                        <span class="panel-icon">🧠</span>
-                        AI Model
+                <div class="main-content">
+                    <!-- Preview Panel -->
+                    <div class="preview-panel">
+                        <div class="preview-tabs">
+                            <button class="preview-tab active" data-tab="generate">🎨 Generate</button>
+                            <button class="preview-tab" data-tab="variations">🔄 Variations</button>
+                            <button class="preview-tab" data-tab="upscale">📈 Upscale</button>
+                            <button class="preview-tab" data-tab="edit">✏️ Edit</button>
+                        </div>
+
+                        <!-- Tab Contents -->
+                        <div id="tab-generate" class="tab-content active">
+                            <div class="preview-area" id="previewArea">
+                                <div class="preview-placeholder">
+                                    <div class="preview-icon">🎨</div>
+                                    <div class="preview-text">Ready to create magic?</div>
+                                    <div class="preview-subtext">Your AI-generated masterpiece will appear here</div>
+                                </div>
+                                
+                                <div class="loading-overlay" id="loadingOverlay">
+                                    <div class="spinner"></div>
+                                    <div class="loading-text">
+                                        <div>Creating your masterpiece...</div>
+                                        <div style="font-size: 14px; margin-top: 8px; opacity: 0.8;" id="loadingSubtext">Initializing AI model</div>
+                                    </div>
+                                    <div class="loading-progress">
+                                        <div class="loading-bar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-variations" class="tab-content">
+                            <div class="preview-area">
+                                <div class="preview-placeholder">
+                                    <div class="preview-icon">🔄</div>
+                                    <div class="preview-text">Create Variations</div>
+                                    <div class="preview-subtext">Generate similar images with different details</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-upscale" class="tab-content">
+                            <div class="preview-area">
+                                <div class="preview-placeholder">
+                                    <div class="preview-icon">📈</div>
+                                    <div class="preview-text">Upscale Images</div>
+                                    <div class="preview-subtext">Enhance resolution up to 4K quality</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-edit" class="tab-content">
+                            <div class="preview-area">
+                                <div class="preview-placeholder">
+                                    <div class="preview-icon">✏️</div>
+                                    <div class="preview-text">Edit & Refine</div>
+                                    <div class="preview-subtext">Inpaint, outpaint, and modify your images</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons" id="actionButtons" style="display: none;">
+                            <button class="action-btn" onclick="downloadImage()">💾 Download</button>
+                            <button class="action-btn" onclick="createVariations()">🔄 Create Variations</button>
+                            <button class="action-btn" onclick="upscaleImage()">📈 Upscale</button>
+                            <button class="action-btn" onclick="favoriteImage()">❤️ Favorite</button>
+                            <button class="action-btn primary" onclick="generateNew()">🚀 Generate Another</button>
+                        </div>
                     </div>
-                    <select class="select" id="modelSelect">
-                        <option value="dalle3">DALL-E 3 (Best Quality)</option>
-                        <option value="midjourney" selected>Midjourney v6 (Artistic)</option>
-                        <option value="stable-diffusion">Stable Diffusion XL (Fast)</option>
-                        <option value="leonardo">Leonardo AI (Versatile)</option>
-                    </select>
+
+                    <!-- Gallery Section -->
+                    <div class="gallery-section">
+                        <div class="gallery-header">
+                            <h2 class="gallery-title">🖼️ Your Creations</h2>
+                            <div class="gallery-filters">
+                                <button class="filter-btn active" data-filter="all">All</button>
+                                <button class="filter-btn" data-filter="recent">Recent</button>
+                                <button class="filter-btn" data-filter="favorites">Favorites</button>
+                                <button class="filter-btn" data-filter="public">Public</button>
+                            </div>
+                        </div>
+                        <div class="gallery-grid" id="galleryGrid">
+                            <!-- Example AI Generated Images -->
+                            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1636955840493-f43a02bfa064?w=400&h=400&fit=crop'); background-size: cover;">
+                                <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 8px; margin: 10px; backdrop-filter: blur(5px);">
+                                    <div style="color: white; font-size: 12px; font-weight: 500;">Cyberpunk Portrait</div>
+                                </div>
+                            </div>
+                            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop'); background-size: cover;">
+                                <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 8px; margin: 10px; backdrop-filter: blur(5px);">
+                                    <div style="color: white; font-size: 12px; font-weight: 500;">Digital Landscape</div>
+                                </div>
+                            </div>
+                            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1614728263952-84ea256f9679?w=400&h=400&fit=crop'); background-size: cover;">
+                                <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 8px; margin: 10px; backdrop-filter: blur(5px);">
+                                    <div style="color: white; font-size: 12px; font-weight: 500;">Abstract Art</div>
+                                </div>
+                            </div>
+                            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop'); background-size: cover;">
+                                <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 8px; margin: 10px; backdrop-filter: blur(5px);">
+                                    <div style="color: white; font-size: 12px; font-weight: 500;">Cosmic Scene</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="main-content">
-                <!-- Preview Panel -->
-                <div class="preview-panel">
-                    <div class="preview-tabs">
-                        <button class="preview-tab active" data-tab="generate">🎨 Generate</button>
-                        <button class="preview-tab" data-tab="variations">🔄 Variations</button>
-                        <button class="preview-tab" data-tab="upscale">📈 Upscale</button>
-                        <button class="preview-tab" data-tab="edit">✏️ Edit</button>
+        <!-- Pricing Page -->
+        <div id="pricing-page" class="page-content" style="display: none;">
+            <div class="panel">
+                <div class="panel-title">
+                    <span class="panel-icon">💎</span>
+                    Choose Your Plan
+                </div>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3>Free</h3>
+                        <div style="font-size: 2rem; font-weight: bold; margin: 15px 0;">$0</div>
+                        <div style="color: var(--text-secondary); margin-bottom: 20px;">per month</div>
+                        <ul style="list-style: none; padding: 0; margin-bottom: 30px;">
+                            <li style="margin: 10px 0;">✅ 25 credits per month</li>
+                            <li style="margin: 10px 0;">✅ Basic models</li>
+                            <li style="margin: 10px 0;">✅ 512x512 resolution</li>
+                            <li style="margin: 10px 0;">❌ Commercial license</li>
+                        </ul>
+                        <button class="action-btn" style="width: 100%;">Get Started</button>
                     </div>
-
-                    <div class="preview-area" id="previewArea">
-                        <div class="preview-placeholder">
-                            <div class="preview-icon">🎨</div>
-                            <div class="preview-text">Ready to create magic?</div>
-                            <div class="preview-subtext">Your AI-generated masterpiece will appear here</div>
-                        </div>
-                        
-                        <div class="loading-overlay" id="loadingOverlay">
-                            <div class="spinner"></div>
-                            <div class="loading-text">
-                                <div>Creating your masterpiece...</div>
-                                <div style="font-size: 14px; margin-top: 8px; opacity: 0.8;" id="loadingSubtext">Initializing AI model</div>
-                            </div>
-                            <div class="loading-progress">
-                                <div class="loading-bar"></div>
-                            </div>
-                        </div>
+                    <div class="pricing-card featured">
+                        <h3>Pro</h3>
+                        <div style="font-size: 2rem; font-weight: bold; margin: 15px 0;">$19</div>
+                        <div style="color: var(--text-secondary); margin-bottom: 20px;">per month</div>
+                        <ul style="list-style: none; padding: 0; margin-bottom: 30px;">
+                            <li style="margin: 10px 0;">✅ 1000 credits per month</li>
+                            <li style="margin: 10px 0;">✅ All AI models</li>
+                            <li style="margin: 10px 0;">✅ Up to 4K resolution</li>
+                            <li style="margin: 10px 0;">✅ Commercial license</li>
+                            <li style="margin: 10px 0;">✅ Priority generation</li>
+                        </ul>
+                        <button class="action-btn primary" style="width: 100%;">Upgrade Now</button>
                     </div>
-
-                    <div class="action-buttons" id="actionButtons" style="display: none;">
-                        <button class="action-btn">💾 Download</button>
-                        <button class="action-btn">🔄 Create Variations</button>
-                        <button class="action-btn">📈 Upscale</button>
-                        <button class="action-btn">❤️ Favorite</button>
-                        <button class="action-btn primary">🚀 Generate Another</button>
+                    <div class="pricing-card">
+                        <h3>Enterprise</h3>
+                        <div style="font-size: 2rem; font-weight: bold; margin: 15px 0;">$99</div>
+                        <div style="color: var(--text-secondary); margin-bottom: 20px;">per month</div>
+                        <ul style="list-style: none; padding: 0; margin-bottom: 30px;">
+                            <li style="margin: 10px 0;">✅ Unlimited credits</li>
+                            <li style="margin: 10px 0;">✅ Custom AI models</li>
+                            <li style="margin: 10px 0;">✅ API access</li>
+                            <li style="margin: 10px 0;">✅ Team collaboration</li>
+                            <li style="margin: 10px 0;">✅ Priority support</li>
+                        </ul>
+                        <button class="action-btn" style="width: 100%;">Contact Sales</button>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- Gallery Section -->
-                <div class="gallery-section">
-                    <div class="gallery-header">
-                        <h2 class="gallery-title">🖼️ Your Creations</h2>
-                        <div class="gallery-filters">
-                            <button class="filter-btn active">All</button>
-                            <button class="filter-btn">Recent</button>
-                            <button class="filter-btn">Favorites</button>
-                            <button class="filter-btn">Public</button>
+        <!-- Explore Page -->
+        <div id="explore-page" class="page-content" style="display: none;">
+            <div class="gallery-section">
+                <div class="gallery-header">
+                    <h2 class="gallery-title">🌟 Community Showcase</h2>
+                    <div class="gallery-filters">
+                        <button class="filter-btn active">Trending</button>
+                        <button class="filter-btn">Recent</button>
+                        <button class="filter-btn">Top Rated</button>
+                        <button class="filter-btn">Staff Picks</button>
+                    </div>
+                </div>
+                <div class="gallery-grid">
+                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=400&h=400&fit=crop'); background-size: cover;">
+                        <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 8px; margin: 10px; backdrop-filter: blur(5px);">
+                            <div style="color: white; font-size: 12px; font-weight: 500;">Futuristic City</div>
                         </div>
                     </div>
-                    <div class="gallery-grid" id="galleryGrid">
-                        <div class="gallery-item">
-                            <div style="text-align: center;">
-                                <div style="font-size: 32px; margin-bottom: 8px;">🎨</div>
-                                <div>Your first creation will appear here</div>
-                            </div>
+                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=400&fit=crop'); background-size: cover;">
+                        <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 8px; margin: 10px; backdrop-filter: blur(5px);">
+                            <div style="color: white; font-size: 12px; font-weight: 500;">Fantasy Portrait</div>
                         </div>
-                        <div class="gallery-item">
-                            <div style="text-align: center;">
-                                <div style="font-size: 32px; margin-bottom: 8px;">✨</div>
-                                <div>Try different styles and prompts</div>
-                            </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop'); background-size: cover;">
+                        <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 8px; margin: 10px; backdrop-filter: blur(5px);">
+                            <div style="color: white; font-size: 12px; font-weight: 500;">Ocean Sunset</div>
                         </div>
-                        <div class="gallery-item">
-                            <div style="text-align: center;">
-                                <div style="font-size: 32px; margin-bottom: 8px;">🚀</div>
-                                <div>Create unlimited possibilities</div>
-                            </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=400&h=400&fit=crop'); background-size: cover;">
+                        <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 8px; margin: 10px; backdrop-filter: blur(5px);">
+                            <div style="color: white; font-size: 12px; font-weight: 500;">Space Explorer</div>
                         </div>
-                        <div class="gallery-item">
-                            <div style="text-align: center;">
-                                <div style="font-size: 32px; margin-bottom: 8px;">💎</div>
-                                <div>Share with the community</div>
-                            </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=400&h=400&fit=crop'); background-size: cover;">
+                        <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 8px; margin: 10px; backdrop-filter: blur(5px);">
+                            <div style="color: white; font-size: 12px; font-weight: 500;">Magical Forest</div>
                         </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=400&fit=crop'); background-size: cover;">
+                        <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 8px; margin: 10px; backdrop-filter: blur(5px);">
+                            <div style="color: white; font-size: 12px; font-weight: 500;">Character Design</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Templates Page -->
+        <div id="templates-page" class="page-content" style="display: none;">
+            <div class="panel">
+                <div class="panel-title">
+                    <span class="panel-icon">📚</span>
+                    Prompt Templates
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <div class="pricing-card">
+                        <h4>Portrait Photography</h4>
+                        <p style="margin: 15px 0; color: var(--text-secondary);">Professional portrait, studio lighting, high detail, 85mm lens, shallow depth of field</p>
+                        <button class="action-btn" onclick="useTemplate('Professional portrait, studio lighting, high detail, 85mm lens, shallow depth of field, photorealistic')">Use Template</button>
+                    </div>
+                    <div class="pricing-card">
+                        <h4>Fantasy Landscape</h4>
+                        <p style="margin: 15px 0; color: var(--text-secondary);">Epic fantasy landscape, magical atmosphere, dramatic lighting, concept art style</p>
+                        <button class="action-btn" onclick="useTemplate('Epic fantasy landscape, magical atmosphere, dramatic lighting, concept art style, highly detailed')">Use Template</button>
+                    </div>
+                    <div class="pricing-card">
+                        <h4>Cyberpunk Scene</h4>
+                        <p style="margin: 15px 0; color: var(--text-secondary);">Cyberpunk city, neon lights, futuristic, dark atmosphere, blade runner style</p>
+                        <button class="action-btn" onclick="useTemplate('Cyberpunk city, neon lights, futuristic, dark atmosphere, blade runner style, cinematic')">Use Template</button>
+                    </div>
+                    <div class="pricing-card">
+                        <h4>Anime Character</h4>
+                        <p style="margin: 15px 0; color: var(--text-secondary);">Anime character, detailed face, vibrant colors, manga style, high quality</p>
+                        <button class="action-btn" onclick="useTemplate('Anime character, detailed face, vibrant colors, manga style, high quality, trending on pixiv')">Use Template</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sign In Page -->
+        <div id="signin-page" class="page-content" style="display: none;">
+            <div class="panel" style="max-width: 400px; margin: 0 auto;">
+                <div class="panel-title">
+                    <span class="panel-icon">👤</span>
+                    Sign In to AstraForge
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="seed-input" placeholder="Enter your email" style="margin-bottom: 15px;">
+                    
+                    <label class="form-label">Password</label>
+                    <input type="password" class="seed-input" placeholder="Enter your password" style="margin-bottom: 20px;">
+                    
+                    <button class="generate-btn" style="margin-bottom: 15px;">Sign In</button>
+                    
+                    <div style="text-align: center; color: var(--text-secondary);">
+                        Don't have an account? <a href="#" style="color: var(--accent-purple);">Sign up here</a>
                     </div>
                 </div>
             </div>
@@ -1228,6 +1517,31 @@
             setupNavigation();
             setupGalleryFilters();
             addKeyboardShortcuts();
+        }
+
+        // Navigation System
+        function setupNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const pages = document.querySelectorAll('.page-content');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetPage = this.dataset.page;
+                    
+                    // Update active nav item
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show target page
+                    pages.forEach(page => page.style.display = 'none');
+                    const targetElement = document.getElementById(targetPage + '-page');
+                    if (targetElement) {
+                        targetElement.style.display = 'block';
+                    }
+                    
+                    showNotification(`Switched to ${targetPage} page`, 'success');
+                });
+            });
         }
 
         // Slider Controls with Real-time Updates
@@ -1301,22 +1615,23 @@
         // Preview Tabs
         function setupTabs() {
             const tabs = document.querySelectorAll('.preview-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
             
             tabs.forEach(tab => {
                 tab.addEventListener('click', function() {
+                    const tabType = this.dataset.tab;
+                    
+                    // Update active tab
                     tabs.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
                     
-                    const tabType = this.dataset.tab;
-                    switchPreviewMode(tabType);
+                    // Show corresponding content
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    document.getElementById(`tab-${tabType}`).classList.add('active');
+                    
+                    showNotification(`Switched to ${tabType} mode`, 'success');
                 });
             });
-        }
-
-        function switchPreviewMode(mode) {
-            const previewArea = document.getElementById('previewArea');
-            // This would switch between different preview modes
-            // Implementation depends on your specific needs
         }
 
         // Advanced Generation System
@@ -1373,19 +1688,25 @@
                 generateText.textContent = '🚀 Generate Image';
                 loadingOverlay.classList.remove('active');
 
-                // Show generated result
+                // Show generated result with a realistic AI-generated style image
                 const previewArea = document.getElementById('previewArea');
+                const exampleImages = [
+                    'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=500&h=500&fit=crop',
+                    'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=500&fit=crop',
+                    'https://images.unsplash.com/photo-1614728263952-84ea256f9679?w=500&h=500&fit=crop',
+                    'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&h=500&fit=crop'
+                ];
+                
+                const randomImage = exampleImages[Math.floor(Math.random() * exampleImages.length)];
+                
                 previewArea.innerHTML = `
-                    <div style="width: 100%; max-width: 500px; aspect-ratio: 1; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-direction: column; color: white; position: relative; overflow: hidden;">
-                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🎨</text></svg>') center/60% no-repeat; opacity: 0.3;"></div>
-                        <div style="text-align: center; z-index: 2;">
-                            <div style="font-size: 24px; font-weight: bold; margin-bottom: 8px;">✨ Generated Successfully!</div>
-                            <div style="font-size: 14px; opacity: 0.8;">Connect your API to see actual results</div>
+                    <div style="width: 100%; max-width: 500px; aspect-ratio: 1; background-image: url('${randomImage}'); background-size: cover; background-position: center; border-radius: 16px; display: flex; align-items: end; justify-content: center; position: relative; overflow: hidden; border: 2px solid var(--accent-purple);">
+                        <div style="position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.7); color: white; padding: 6px 12px; border-radius: 20px; font-size: 12px; backdrop-filter: blur(10px);">
+                            ✨ AI Generated
                         </div>
-                        <div style="position: absolute; bottom: 16px; left: 16px; right: 16px; display: flex; gap: 8px;">
-                            <div style="flex: 1; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px;"></div>
-                            <div style="flex: 1; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px;"></div>
-                            <div style="flex: 1; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px;"></div>
+                        <div style="background: rgba(0,0,0,0.8); color: white; padding: 15px; margin: 15px; border-radius: 12px; backdrop-filter: blur(10px); text-align: center; width: calc(100% - 30px);">
+                            <div style="font-weight: 600; margin-bottom: 5px;">Generation Complete! 🎉</div>
+                            <div style="font-size: 12px; opacity: 0.8;">Resolution: 768×768 • Model: Midjourney v6</div>
                         </div>
                     </div>
                 `;
@@ -1393,40 +1714,93 @@
                 actionButtons.style.display = 'flex';
                 showNotification('Image generated successfully! 🎉', 'success');
                 updateCredits(-1);
+                
+                // Add to gallery
+                addToGallery(randomImage);
             }
         }
 
-        // Navigation System
-        function setupNavigation() {
-            const navItems = document.querySelectorAll('.nav-item');
-            
-            navItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-        }
-
-        // Gallery Filters
+        // Gallery Filter System
         function setupGalleryFilters() {
             const filterBtns = document.querySelectorAll('.filter-btn');
             
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
-                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Only update filters within the same gallery section
+                    const parentFilters = this.parentElement;
+                    const siblingBtns = parentFilters.querySelectorAll('.filter-btn');
+                    
+                    siblingBtns.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
                     
-                    const filter = this.textContent.toLowerCase();
+                    const filter = this.dataset.filter || this.textContent.toLowerCase();
                     filterGallery(filter);
                 });
             });
         }
 
         function filterGallery(filter) {
-            // Implementation for filtering gallery items
             showNotification(`Showing ${filter} images`, 'success');
+        }
+
+        // Action Button Functions
+        function downloadImage() {
+            showNotification('Download started! 📥', 'success');
+        }
+
+        function createVariations() {
+            showNotification('Creating variations... 🔄', 'success');
+            // Switch to variations tab
+            document.querySelector('[data-tab="variations"]').click();
+        }
+
+        function upscaleImage() {
+            showNotification('Starting upscale process... 📈', 'success');
+            // Switch to upscale tab
+            document.querySelector('[data-tab="upscale"]').click();
+        }
+
+        function favoriteImage() {
+            showNotification('Added to favorites! ❤️', 'success');
+        }
+
+        function generateNew() {
+            // Clear preview and start new generation
+            const previewArea = document.getElementById('previewArea');
+            previewArea.innerHTML = `
+                <div class="preview-placeholder">
+                    <div class="preview-icon">🎨</div>
+                    <div class="preview-text">Ready for another masterpiece?</div>
+                    <div class="preview-subtext">Your next AI-generated creation will appear here</div>
+                </div>
+            `;
+            document.getElementById('actionButtons').style.display = 'none';
+            showNotification('Ready for new generation! 🚀', 'success');
+        }
+
+        // Template Functions
+        function useTemplate(template) {
+            document.getElementById('promptInput').value = template;
+            // Switch to generate page
+            document.querySelector('[data-page="generate"]').click();
+            showNotification('Template applied! Ready to generate 🎨', 'success');
+        }
+
+        // Gallery Management
+        function addToGallery(imageUrl) {
+            const galleryGrid = document.getElementById('galleryGrid');
+            const newItem = document.createElement('div');
+            newItem.className = 'gallery-item';
+            newItem.style.backgroundImage = `url('${imageUrl}')`;
+            newItem.style.backgroundSize = 'cover';
+            newItem.innerHTML = `
+                <div style="background: rgba(0,0,0,0.7); padding: 10px; border-radius: 8px; margin: 10px; backdrop-filter: blur(5px);">
+                    <div style="color: white; font-size: 12px; font-weight: 500;">New Creation</div>
+                </div>
+            `;
+            
+            // Insert at the beginning
+            galleryGrid.insertBefore(newItem, galleryGrid.firstChild);
         }
 
         // Utility Functions
@@ -1439,6 +1813,7 @@
             }
             
             promptInput.focus();
+            showNotification(`Added "${text}" to prompt`, 'success');
         }
 
         function updateEstimatedTime() {
@@ -1455,7 +1830,7 @@
             
             if (newCredits < 10) {
                 creditsCount.style.color = 'var(--danger-red)';
-                showNotification('Running low on credits!', 'warning');
+                showNotification('Running low on credits! Consider upgrading 💎', 'warning');
             }
         }
 
@@ -1481,34 +1856,99 @@
                 if (e.key === 'Escape') {
                     const loadingOverlay = document.getElementById('loadingOverlay');
                     if (loadingOverlay.classList.contains('active')) {
-                        // Cancel generation logic here
+                        loadingOverlay.classList.remove('active');
+                        document.getElementById('generateBtn').classList.remove('generating');
+                        document.getElementById('generateText').textContent = '🚀 Generate Image';
+                        showNotification('Generation cancelled', 'warning');
+                    }
+                }
+
+                // Number keys for quick navigation
+                if (e.key >= '1' && e.key <= '5') {
+                    const navItems = document.querySelectorAll('.nav-item');
+                    const index = parseInt(e.key) - 1;
+                    if (navItems[index]) {
+                        navItems[index].click();
                     }
                 }
             });
         }
 
-        // Auto-save functionality
-        setInterval(() => {
-            const prompt = document.getElementById('promptInput').value;
-            const negativePrompt = document.getElementById('negativeInput').value;
-            
-            if (prompt || negativePrompt) {
-                localStorage.setItem('astraforge_prompt', prompt);
-                localStorage.setItem('astraforge_negative', negativePrompt);
-            }
-        }, 10000);
+        // Auto-save functionality (removed localStorage to comply with restrictions)
+        let autoSaveInterval;
+        function startAutoSave() {
+            autoSaveInterval = setInterval(() => {
+                const prompt = document.getElementById('promptInput').value;
+                const negativePrompt = document.getElementById('negativeInput').value;
+                
+                // In a real application, this would save to a server
+                if (prompt || negativePrompt) {
+                    console.log('Auto-saved prompts:', { prompt, negativePrompt });
+                }
+            }, 30000); // Save every 30 seconds
+        }
 
-        // Load saved prompts on page load
-        window.addEventListener('load', () => {
-            const savedPrompt = localStorage.getItem('astraforge_prompt');
-            const savedNegative = localStorage.getItem('astraforge_negative');
-            
-            if (savedPrompt) {
-                document.getElementById('promptInput').value = savedPrompt;
+        // Enhanced error handling
+        window.addEventListener('error', function(e) {
+            console.error('Application error:', e.error);
+            showNotification('An error occurred. Please try again.', 'error');
+        });
+
+        // Initialize auto-save
+        startAutoSave();
+
+        // Add some demo interactions
+        document.addEventListener('click', function(e) {
+            // Add click effects to gallery items
+            if (e.target.closest('.gallery-item')) {
+                const item = e.target.closest('.gallery-item');
+                item.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    item.style.transform = '';
+                }, 150);
             }
-            if (savedNegative) {
-                document.getElementById('negativeInput').value = savedNegative;
+        });
+
+        // Initialize with welcome message
+        setTimeout(() => {
+            showNotification('Welcome to AstraForge Pro! 🎨', 'success');
+        }, 1000);
+
+        // Add mouse movement effects
+        document.addEventListener('mousemove', function(e) {
+            const floating = document.querySelectorAll('.floating-circle');
+            floating.forEach((circle, index) => {
+                const speed = (index + 1) * 0.0001;
+                const x = e.clientX * speed;
+                const y = e.clientY * speed;
+                circle.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+
+        // Performance optimization
+        let ticking = false;
+        function updateFloatingElements(e) {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    // Smooth animations
+                    ticking = false;
+                });
+                ticking = true;
             }
+        }
+
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
         });
     </script>
 </body>
